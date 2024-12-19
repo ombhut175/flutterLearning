@@ -7,7 +7,7 @@ void main(){
   User user = User();
   int choice;
   do{
-    stdout.writeln('enter 1 for insert \n 2 for update \n 3 for get all \n 4 for getById \n 5 for deleteById \n 6 to update required \n7 to exit');
+    stdout.writeln('enter 1 for insert \n 2 for update \n 3 for get all \n 4 for getById \n 5 for deleteById \n 6 to update required \n7 to search\n 8 to exit');
     choice = int.parse(stdin.readLineSync()!);
     switch(choice){
       case 1:
@@ -66,9 +66,11 @@ void main(){
               }while(choice2!=4);
         user.updateUserRequired(name: name,age: age,email: email,id: index);
       case 7:
-        stdout.writeln("exiting.......");
+        stdout.writeln("Enter value to search");
+        String s = stdin.readLineSync()!;
+        user.searchDetail(searchData: s);
       default:
         break;
     }
-  }while(choice!=7);
+  }while(choice!=8);
 }

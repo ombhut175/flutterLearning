@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_work/design/login/login_page.dart';
+import 'package:lecture_work/design/login/register_page.dart';
+import 'package:lecture_work/list/list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      home: const ListViewDemo(),
     );
   }
 }

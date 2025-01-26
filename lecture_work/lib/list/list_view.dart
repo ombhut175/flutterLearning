@@ -39,7 +39,7 @@ class _ListViewDemoState extends State<ListViewDemo> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return const UserEntryPage();
+              return UserEntryPage();
             },
           )).then((value) {
             _user.userList.add(value);
@@ -163,7 +163,16 @@ class _ListViewDemoState extends State<ListViewDemo> {
     return Card(
       elevation: 10,
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return UserEntryPage(
+              userDetail: uList[i],
+            );
+          })).then((value) {
+            uList[i] = value;
+            setState(() {});
+          });
+        },
         leading: Image.asset(
           "assets/images/default-profile-account.jpg",
           errorBuilder: (context, error, stackTrace) {
@@ -268,6 +277,71 @@ class _ListViewDemoState extends State<ListViewDemo> {
       autofocus: true,
       hoverColor: Colors.blue,
       child: const Icon(Icons.delete),
+    );
+  }
+
+  Widget getListGridItem(i) {
+    return Card(
+      elevation: 10,
+      child: ListTile(
+        onTap: () {},
+        leading: Image.asset('assets/images/download.jpeg'),
+        trailing: Wrap(
+          alignment: WrapAlignment.center,
+          direction: Axis.horizontal,
+          children: [
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CupertinoAlertDialog(
+                      title: Text('DELETE'),
+                      content: Text('Are you sure want to delete?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            _user.deleteUserById(id: i);
+                            Navigator.pop(context);
+                            setState(() {});
+                          },
+                          child: Text('yes'),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('No'),
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red,
+                size: 25,
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey.shade500,
+            ),
+          ],
+        ),
+        title: Wrap(
+          direction: Axis.vertical,
+          children: [
+            Text(
+              '${_user.userList[i][NAME]}',
+              style: TextStyle(fontSize: 25, color: Colors.black),
+            ),
+            Text(
+              '${_user.userList[i][CITY]} | ${_user.userList[i][EMAIL]}',
+              style: TextStyle(fontSize: 20, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

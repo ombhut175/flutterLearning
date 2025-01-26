@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:lecture_work/utils/string_const.dart';
 
 class UserEntryPage extends StatefulWidget {
-  const UserEntryPage({super.key});
+  Map<String, dynamic>? userDetail = {};
+
+  UserEntryPage({super.key, this.userDetail});
 
   @override
   State<UserEntryPage> createState() => _UserEntryPage();
@@ -23,7 +25,14 @@ class _UserEntryPage extends State<UserEntryPage> {
   @override
   void initState() {
     super.initState();
-    selectedCity = cities[0];
+    selectedCity = widget.userDetail == null
+        ? cities[0]
+        : widget.userDetail![CITY].toString();
+    if (widget.userDetail != null) {
+      nameController.text = widget.userDetail![NAME].toString();
+      ageController.text = widget.userDetail![AGE].toString();
+      emailController.text = widget.userDetail![EMAIL].toString();
+    }
   }
 
   @override

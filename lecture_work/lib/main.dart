@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_work/database/my_database.dart';
 import 'package:lecture_work/design/login/login_page.dart';
 import 'package:lecture_work/design/login/register_page.dart';
 import 'package:lecture_work/design/tabular_view.dart';
@@ -22,7 +23,16 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const PageViewDemo(),
+      home: FutureBuilder(
+        future: MyDatabase().initDatabase(),
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? const ListViewDemo()
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
     );
   }
 }

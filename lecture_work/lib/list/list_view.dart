@@ -41,8 +41,8 @@ class _ListViewDemoState extends State<ListViewDemo> {
             builder: (context) {
               return UserEntryPage();
             },
-          )).then((value) {
-            _user.userList.add(value);
+          )).then((value) async {
+            await _user.addUser(user: value);
             setState(() {});
           });
         },
@@ -168,8 +168,8 @@ class _ListViewDemoState extends State<ListViewDemo> {
             return UserEntryPage(
               userDetail: uList[i],
             );
-          })).then((value) {
-            uList[i] = value;
+          })).then((value) async {
+            await _user.addUser(user: value);
             setState(() {});
           });
         },

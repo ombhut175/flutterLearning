@@ -1,20 +1,20 @@
 import 'dart:io';
 
+import 'package:lecture_work/database/my_database.dart';
 import 'package:lecture_work/utils/string_const.dart';
+import 'package:sqflite/sqflite.dart';
 
 class User {
   List<Map<String, dynamic>> userList = [];
 
-  void addUser({required name, required age, required email}) {
-    Map<String, dynamic> user = {};
-    user[NAME] = name;
-    user[AGE] = age;
-    user[EMAIL] = email;
-    userList.add(user);
+  Future<void> addUser({required Map<String,dynamic> user}) async {
+      Database db = await MyDatabase().initDatabase();
+      int index = await db.insert(MyDatabase.TBL_USER, user);
   }
 
-  List<Map<String, dynamic>> getUsers() {
-    return userList;
+  Future<List<Map<String, dynamic>>> getUsers() async {
+    Database db = await MyDatabase().initDatabase();
+    return db.query(MyDatabase.TBL_USER);
   }
 
   Map<String, dynamic> getUserById({required id}) {
